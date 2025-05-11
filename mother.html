@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>母亲节快乐</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffebee;
+            text-align: center;
+            padding: 50px;
+            transition: background-color 1s;
+        }
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+            transition: transform 0.5s;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        .heart {
+            color: #e91e63;
+            font-size: 30px;
+            animation: beat 1s infinite alternate;
+            display: inline-block;
+            margin: 10px;
+        }
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+        #momMessage {
+            min-height: 100px;
+            font-size: 20px;
+            margin: 20px 0;
+            transition: opacity 0.5s;
+        }
+        button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #c2185b;
+        }
+        .input-section {
+            margin: 20px 0;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .flowers {
+            font-size: 24px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>母亲节快乐！</h1>
+        
+        <div class="input-section">
+            <input type="text" id="momName" placeholder="输入妈妈的名字" value="周女士">
+            <button onclick="personalizeMessage()">个性化祝福</button>
+        </div>
+        
+        <div id="momMessage">
+            <div class="heart">❤</div>
+            <p>亲爱的周女士：</p>
+            <p>卿乃人间最慈萱，春晖遍洒润儿颜。</p>
+            <div class="heart">❤</div>
+        </div>
+        
+        <div class="flowers">🌹🌸🌺🌷💐</div>
+        
+        <button onclick="changeBackground()">改变背景颜色</button>
+        <button onclick="showSpecialMessage()">特别祝福</button>
+    </div>
+
+    <script>
+        const messages = [
+        "愿岁月对您格外温柔，予您永享安康喜乐。"
+        "愿你每一个清晨都被阳光与希望唤醒，每一个黄昏都有温暖与爱意相伴，"
+        "愿您健健康康充满活力每一天。"
+
+        ];
+        
+        const bgColors = ["#ffebee", "#e8f5e9", "#e3f2fd", "#f3e5f5", "#fff8e1"];
+        
+        let messageIndex = 0;
+        let colorIndex = 0;
+        
+        function personalizeMessage() {
+            const momName = document.getElementById('momName').value || "周女士";
+            const messageElement = document.getElementById('momMessage');
+            messageElement.innerHTML = `
+                <div class="heart">❤</div>
+                <p>亲爱的${momName}：</p>
+                <p>${messages[messageIndex % messages.length]}</p>
+                <div class="heart">❤</div>
+            `;
+            messageIndex++;
+        }
+        
+        function changeBackground() {
+            document.body.style.backgroundColor = bgColors[colorIndex % bgColors.length];
+            colorIndex++;
+        }
+        
+        function showSpecialMessage() {
+            const momName = document.getElementById('momName').value || "周女士";
+            const messageElement = document.getElementById('momMessage');
+            messageElement.innerHTML = `
+                <div class="heart">❤</div>
+                <p>亲爱的${momName}：</p>
+                <p>在这个特别的日子里，</p>
+                <p>我想对您说声谢谢！</p>
+                <p>感谢您无条件的爱，</p>
+                <p>感谢您无私的付出。</p>
+                <div class="heart">❤</div>
+                <p>母亲节快乐！</p>
+            `;
+            
+            const flowers = "🌹🌸🌺🌷💐".split("");
+            const flowerContainer = document.querySelector('.flowers');
+            flowerContainer.innerHTML = "";
+            
+            flowers.forEach((flower, i) => {
+                setTimeout(() => {
+                    const span = document.createElement('span');
+                    span.textContent = flower;
+                    span.style.opacity = '0';
+                    span.style.transform = 'translateY(-20px)';
+                    span.style.display = 'inline-block';
+                    span.style.transition = 'all 0.5s';
+                    flowerContainer.appendChild(span);
+                    
+                    setTimeout(() => {
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateY(0)';
+                    }, 50);
+                }, i * 200);
+            });
+        }
+        
+        setInterval(() => {
+            personalizeMessage();
+        }, 3000);
+    </script>
+</body>
+</html>
